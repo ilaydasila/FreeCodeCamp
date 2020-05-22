@@ -30,7 +30,26 @@ function destroyer(arr) {
 
 destroyer([1, 2, 3, 1, 2, 3], 2, 3);
 
-// 4-
+// 4-Make a function that looks through an array of objects (first argument) and returns an array of all objects that have matching name and value pairs (second argument). Each name and value pair of the source object has to be present in the object from the collection if it is to be included in the returned array.
+function whatIsInAName(collection, source) {
+  var keys = Object.keys(source);
+
+  const result = collection.filter((obj) => {
+    return keys.every((key) => {
+      return obj.hasOwnProperty(key) && obj[key] === source[key];
+    });
+  });
+  return result;
+}
+
+whatIsInAName(
+  [
+    { first: 'Romeo', last: 'Montague' },
+    { first: 'Mercutio', last: null },
+    { first: 'Tybalt', last: 'Capulet' },
+  ],
+  { last: 'Capulet' }
+);
 
 // 5- Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
 function spinalCase(str) {
@@ -44,7 +63,14 @@ spinalCase('thisIsSpinalTap');
 spinalCase('This Is Spinal Tap');
 spinalCase('AllThe-small Things');
 
-// 6-
+// 6- Pig Latin is a way of altering English Words. The rules are as follows:
+//If a word begins with a consonant, take the first consonant or consonant cluster, move it to the end of the word, and add "ay" to it.
+//If a word begins with a vowel, just add "way" at the end.
+function translatePigLatin(str) {
+  return str
+    .replace(/^[aeiou]\w*/, '$&way')
+    .replace(/(^[^aeiou]+)(\w*)/, '$2$1ay');
+}
 
 // 7- Perform a search and replace on the sentence using the arguments provided and return the new sentence.
 //First argument is the sentence to perform the search and replace on.
@@ -94,8 +120,128 @@ function pairElement(str) {
 
 pairElement('GCG');
 
-// 9- 
+// 9-
 
-// 10- 
+// 10-
 
-// 11- 
+// 11-Convert the characters &, <, >, " (double quote), and ' (apostrophe), in a string to their corresponding HTML entities.
+function convertHTML(str) {
+  const htmlEntities = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&apos;',
+  };
+  return str.replace(/([&<>\"'])/g, (match) => htmlEntities[match]);
+}
+
+// 12-
+
+// 13-Rewrite sumPrimes so it returns the sum of all prime numbers that are less than or equal to num.
+function sumPrimes(num) {
+  let sum = 0;
+  for (let i = 0; i <= num; i++) {
+    if (primeCheck(i)) {
+      sum += i;
+    }
+  }
+  console.log(sum);
+  return sum;
+}
+
+function primeCheck(n) {
+  if (n === 1) {
+    return false;
+  } else if (n === 2) {
+    return true;
+  } else {
+    for (var i = 2; i < n; i++) {
+      if (n % i === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+sumPrimes(10);
+
+// 14-
+
+// 15- Given the array arr, iterate through and remove each element starting from the first element (the 0 index) until the function func returns true when the iterated element is passed through it.
+//Then return the rest of the array once the condition is satisfied, otherwise, arr should be returned as an empty array.
+function dropElements(arr, func) {
+  let filtered = [];
+  let index = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (func(arr[i])) {
+      filtered.push(arr[i]);
+      index = arr.indexOf(arr[i]) + 1;
+      const result = filtered.concat(arr.slice(index));
+      return result;
+      break;
+    }
+  }
+  return [];
+}
+
+// 16-
+
+// 17-
+
+// 18- Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+function truthCheck(collection, pre) {
+  let onlyTruthy = [];
+  for (let user of collection) {
+    if (user[pre]) {
+      onlyTruthy.push(user[pre]);
+    }
+  }
+  if (onlyTruthy.length === collection.length) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+truthCheck(
+  [
+    { user: 'Tinky-Winky', sex: 'male' },
+    { user: 'Dipsy', sex: 'male' },
+    { user: 'Laa-Laa', sex: 'female' },
+    { user: 'Po', sex: 'female' },
+  ],
+  'sex'
+);
+
+// 19-
+
+// 20- Fill in the object constructor with the ...
+var Person = function (firstAndLast) {
+  let name = firstAndLast.split(' ');
+
+  this.getFirstName = function () {
+    return name[0];
+  };
+  this.getLastName = function () {
+    return name[1];
+  };
+  this.getFullName = function () {
+    return name.join(' ');
+  };
+  this.setFirstName = function (first) {
+    name[0] = first;
+    return name[0];
+  };
+  this.setLastName = function (last) {
+    name[1] = last;
+    return name[1];
+  };
+  this.setFullName = function (firstAndLast) {
+    name = firstAndLast.split(' ');
+    return name;
+  };
+};
+
+var bob = new Person('Bob Ross');
