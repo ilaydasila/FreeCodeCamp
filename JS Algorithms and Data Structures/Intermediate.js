@@ -120,9 +120,38 @@ function pairElement(str) {
 
 pairElement('GCG');
 
-// 9-
+// 9-Find the missing letter in the passed letter range and return it.
+//If all letters are present in the range, return undefined.
+function fearNotLetter(array) {
+  const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const index = letters.indexOf(array[0]);
+  const sub = letters.substr(index, array.length);
+  console.log(sub);
+  for (let i = 0; i < sub.length; i++) {
+    if (sub[i] !== array[i]) {
+      return sub[i];
+    }
+  }
+  if (sub.length === array.length) {
+    return undefined;
+  }
+}
 
-// 10-
+// 10-Write a function that takes two or more arrays and returns a new array of unique values in the order of the original provided arrays.
+//In other words, all values present from all arrays should be included in their original order, but with no duplicates in the final array.
+function uniteUnique(arr) {
+  let resultArr = [];
+  for (let array of arguments) {
+    for (let num of array) {
+      if (!resultArr.includes(num)) {
+        resultArr.push(num);
+      }
+    }
+  }
+  return resultArr;
+}
+
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
 
 // 11-Convert the characters &, <, >, " (double quote), and ' (apostrophe), in a string to their corresponding HTML entities.
 function convertHTML(str) {
@@ -136,7 +165,24 @@ function convertHTML(str) {
   return str.replace(/([&<>\"'])/g, (match) => htmlEntities[match]);
 }
 
-// 12-
+// 12-Given a positive integer num, return the sum of all odd Fibonacci numbers that are less than or equal to num.
+function sumFibs(num) {
+  let prevNumber = 0;
+  let currNumber = 1;
+  let sum = 0;
+  while (currNumber <= num) {
+    if (currNumber % 2 !== 0) {
+      sum += currNumber;
+    }
+
+    currNumber += prevNumber;
+    prevNumber = currNumber - prevNumber;
+  }
+
+  return sum;
+}
+
+sumFibs(10);
 
 // 13-Rewrite sumPrimes so it returns the sum of all prime numbers that are less than or equal to num.
 function sumPrimes(num) {
@@ -188,7 +234,15 @@ function dropElements(arr, func) {
 
 // 16-
 
-// 17-
+// 17-Return an English translated sentence of the passed binary string.
+//The binary string will be space separated.
+function binaryAgent(str) {
+  return String.fromCharCode(
+    ...str.split(' ').map((char) => {
+      return parseInt(char, 2);
+    })
+  );
+}
 
 // 18- Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
 function truthCheck(collection, pre) {
@@ -215,7 +269,32 @@ truthCheck(
   'sex'
 );
 
-// 19-
+// 19-Create a function that sums two arguments together. If only one argument is provided, then return a function that expects one argument and returns the sum.
+//If either argument isn't a valid number, return undefined.
+function addTogether() {
+  const arg1 = arguments[0];
+  for (let value of arguments) {
+    if (!Number.isInteger(value)) {
+      return undefined;
+    }
+  }
+  if (arguments.length === 2) {
+    return arguments[0] + arguments[1];
+  } else {
+    return function () {
+      for (let value of arguments) {
+        if (!Number.isInteger(value)) {
+          return undefined;
+        } else {
+          const arg2 = arguments[0];
+          return arg1 + arg2;
+        }
+      }
+    };
+  }
+}
+
+addTogether(2)(3);
 
 // 20- Fill in the object constructor with the ...
 var Person = function (firstAndLast) {
@@ -245,3 +324,5 @@ var Person = function (firstAndLast) {
 };
 
 var bob = new Person('Bob Ross');
+
+// 21-
