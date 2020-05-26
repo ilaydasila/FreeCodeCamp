@@ -35,7 +35,6 @@ function convertToRoman(num) {
       num -= decimals[i];
     }
   }
-  console.log(roman);
   return roman;
 }
 
