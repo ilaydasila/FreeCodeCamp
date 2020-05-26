@@ -27,17 +27,41 @@ function convertToRoman(num) {
     'I',
   ];
 
-  let romanized = '';
+  let roman = '';
 
-  for (let index = 0; index < decimals.length; index++) {
-    while (decimals[index] <= num) {
-      romanized += romanNums[index];
-      num -= decimals[index];
+  for (let i = 0; i < decimals.length; i++) {
+    while (decimals[i] <= num) {
+      roman += romanNums[i];
+      num -= decimals[i];
     }
   }
-  console.log(romanized);
-  return romanized;
+  console.log(roman);
+  return roman;
 }
 
 convertToRoman(68);
 convertToRoman(36);
+
+// 3-One of the simplest and most widely known ciphers is a Caesar cipher, also known as a shift cipher. In a shift cipher the meanings of the letters are shifted by some set amount.
+//A common modern use is the ROT13 cipher, where the values of the letters are shifted by 13 places. Thus 'A' ↔ 'N', 'B' ↔ 'O' and so on.
+//Write a function which takes a ROT13 encoded string as input and returns a decoded string.
+//All letters will be uppercase. Do not transform any non-alphabetic character
+function rot13(str) {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase();
+  const result = str
+    .split('')
+    .map((char) => {
+      const index = alphabet.indexOf(char);
+      return index >= 0 ? alphabet[(index + 13) % 26] : char;
+    })
+    .join('');
+  return result;
+}
+
+rot13('SERR PBQR PNZC');
+
+// 4-Return true if the passed string looks like a valid US phone number.
+function telephoneCheck(str) {
+  const regex = /^1? ?(( ?\d{3}[- ]*)|(\( ?\d{3}[- ]*\) *))\d{3}[- ]?\d{4}$/;
+  return regex.test(str);
+}
